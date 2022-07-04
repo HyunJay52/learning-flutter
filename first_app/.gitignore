@@ -12,7 +12,7 @@ migrate_working_dir/
 
 # gitignore test
 .metadata
-.DS_Store
+/.DS_Store
 pubspec.lock
 
 # IntelliJ related

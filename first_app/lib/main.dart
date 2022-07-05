@@ -31,7 +31,7 @@ class MyFlutterAppState extends State<MyFlutterApp> {
   var _questionIndex = 0;
 
   // method
-  void answerQuestion() {
+  void _answerQuestion() {
     // re-render changed properties
     setState(() {
       _questionIndex = _questionIndex + 1;
@@ -43,8 +43,18 @@ class MyFlutterAppState extends State<MyFlutterApp> {
   @override // draw Flutter widgets
   Widget build(BuildContext context) {
     var questions = [
-      'what\'s yout fav colour?',
-      'what\'s your fav animal?',
+      {
+        'questionText': 'what\'s yout fav colour?',
+        'answers': ['white', 'red', 'green', 'black']
+      },
+      {
+        'questionText': 'what\'s your fav animal?',
+        'answers': ['dog', 'rabbit', 'elephant', 'polar bear']
+      },
+      {
+        'questionText': 'what\'s your fav food?',
+        'answers': ['apple', 'noodle', 'pizza', 'egg']
+      },
     ];
 
     return MaterialApp(
@@ -56,9 +66,23 @@ class MyFlutterAppState extends State<MyFlutterApp> {
           // list
           children: [
             Question(
-              questions[_questionIndex],
+              questions[_questionIndex]['questionText'] as String,
             ),
-            ElevatedButton(
+            ...(questions[_questionIndex]['answers'] as List<String>)
+                .map((answer) {
+              return Answer(_answerQuestion, answer); // iterable
+            }).toList(),
+            /*  Answer(
+              _answerQuestion,
+            ),
+            Answer(
+              _answerQuestion,
+            ),
+            Answer(
+              _answerQuestion,
+            ),
+
+             ElevatedButton(
               onPressed: answerQuestion,
               child: const Text('Answer 1'),
             ),
@@ -68,8 +92,8 @@ class MyFlutterAppState extends State<MyFlutterApp> {
                 //
                 debugPrint('Answer 2 chosend !')
               },
-            ),
-            _buildElevatedButton('Answer 3', () => print('answer 3 chosen !')),
+            ), */
+            //_buildElevatedButton('Answer 3', () => print('answer 3 chosen !')),
             // ElevatedButton(
             //   child: Text('Answer 3'),
             //   onPressed: () => print('answer 3 chosen !'),

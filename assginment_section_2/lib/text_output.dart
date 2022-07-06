@@ -10,7 +10,6 @@ class TextOutput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       mainText,
-      textAlign: TextAlign.center,
       style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
     );
   }

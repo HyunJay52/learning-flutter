@@ -24,7 +24,6 @@ class _TextControlState extends State<TextControl> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         TextOutput(_mainText),
         ElevatedButton(

@@ -62,6 +62,13 @@ class MyFlutterAppState extends State<MyFlutterApp> {
   var _totalScore = 0;
 
   // method
+  void _resetQuiz() {
+    setState(() {
+      _questionIndex = 0;
+      _totalScore = 0;
+    });
+  }
+
   void _answerQuestion(int score) {
     _totalScore += score;
 
@@ -93,7 +100,7 @@ class MyFlutterAppState extends State<MyFlutterApp> {
                   questionIndex: _questionIndex,
                   questions: _questions,
                 )
-              : Result()),
+              : Result(_totalScore, _resetQuiz)),
     );
   }
 }

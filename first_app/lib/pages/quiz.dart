@@ -7,7 +7,8 @@ class Quiz extends StatelessWidget {
   final List<Map<String, Object>> questions;
   final int questionIndex;
   //final Function answerQuestion;
-  void Function(int score) answerQuestion;
+  final Function(int score) answerQuestion;
+  // void Function(int score) answerQuestion;
   //final VoidCallback answerQuestion;
 
   Quiz({

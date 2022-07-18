@@ -7,6 +7,7 @@ import '../providers/product.dart';
 import '../providers/cart_provider.dart';
 
 class ProductItem extends StatelessWidget {
+  const ProductItem({Key? key}) : super(key: key);
   // final String id;
   // final String title;
   // final String imageUrl;
@@ -27,6 +28,7 @@ class ProductItem extends StatelessWidget {
     // Consumer - only subpart wanted to be updated
     final product = Provider.of<ProductModel>(context, listen: false);
     final cart = Provider.of<CartProvider>(context, listen: false);
+    final cart2 = context.read<CartProvider>();
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),

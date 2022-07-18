@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../providers/cart_provider.dart' show CartProvider;
 import '../widgets/cart_item.dart';
+import '../providers/orders_provider.dart';
 
 class CartPage extends StatelessWidget {
   static const routeName = '/cart';
@@ -48,7 +49,14 @@ class CartPage extends StatelessWidget {
                       backgroundColor: Theme.of(context).colorScheme.primary,
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        // add order
+                        context.read<OrdersProvider>().addOrder(
+                              cart.items.values.toList(),
+                              cart.totalAmount,
+                            );
+                        cart.clearCart();
+                      },
                       child: const Text(
                         'order now',
                         style: TextStyle(
@@ -68,6 +76,7 @@ class CartPage extends StatelessWidget {
                 itemCount: cart.itemCount,
                 itemBuilder: (BuildContext ctx, int i) => CartItem(
                   id: cart.items.values.toList()[i].id,
+                  productId: cart.items.keys.toList()[i],
                   price: cart.items.values.toList()[i].price,
                   quantity: cart.items.values.toList()[i].quantity,
                   title: cart.items.values.toList()[i].title,

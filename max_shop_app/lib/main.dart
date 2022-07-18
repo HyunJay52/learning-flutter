@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:max_shop_app/pages/cart_page.dart';
+import 'package:max_shop_app/providers/orders_provider.dart';
 import 'package:max_shop_app/providers/cart_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -7,10 +8,14 @@ import './pages/products_overview_page.dart';
 import './pages/product_detail_page.dart';
 import './providers/products_provider.dart';
 import './pages/cart_page.dart';
+import './providers/orders_provider.dart';
+import './pages/orders_page.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     // provider : ChangeNotifierProvider > create provider instance,
@@ -20,12 +25,15 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       // ChangeNotifierProvider.value() only for one -> more than on providers
       providers: [
-        ChangeNotifierProvider.value(
-          value: ProductsProvider(),
+        ChangeNotifierProvider(
+          create: (ctx) => ProductsProvider(),
         ),
         ChangeNotifierProvider.value(
           value: CartProvider(),
         ),
+        ChangeNotifierProvider.value(
+          value: OrdersProvider(),
+        )
         // ChangeNotifierProvider.value(
         //   value: ProductsProvider(),
         //   create: (ctx) => ProductsProvider(),
@@ -41,10 +49,11 @@ class MyApp extends StatelessWidget {
           ),
           fontFamily: 'QuickSand',
         ),
-        home: ProductsOverviewPage(),
+        home: const ProductsOverviewPage(),
         routes: {
           ProductDetailPage.routeName: (ctx) => ProductDetailPage(),
-          CartPage.routeName: (ctx) => CartPage(),
+          CartPage.routeName: (ctx) => const CartPage(),
+          OrdersPage.routeName: (ctx) => const OrdersPage(),
         },
       ),
     );

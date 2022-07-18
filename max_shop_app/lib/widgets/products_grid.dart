@@ -25,7 +25,7 @@ class ProductsGrid extends StatelessWidget {
         // 이 상태에서 좋아요 리스트만 보려고 할 때, 버그 -> 에러
         // (좋아요 누른 아이템 보여준게 아니라 그냥 개수만큼 리스트 -> Exception caught by widgets library)
         value: products[i],
-        child: ProductItem(
+        child: const ProductItem(
             // id: products[i].id,
             // title: products[i].title,
             // imageUrl: products[i].imageUrl,

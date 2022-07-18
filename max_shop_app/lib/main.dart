@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:max_shop_app/pages/cart_page.dart';
 import 'package:max_shop_app/providers/cart_provider.dart';
 import 'package:provider/provider.dart';
 
 import './pages/products_overview_page.dart';
 import './pages/product_detail_page.dart';
 import './providers/products_provider.dart';
+import './pages/cart_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -18,8 +20,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       // ChangeNotifierProvider.value() only for one -> more than on providers
       providers: [
-        ChangeNotifierProvider(
-          create: (ctx) => ProductsProvider(),
+        ChangeNotifierProvider.value(
+          value: ProductsProvider(),
         ),
         ChangeNotifierProvider.value(
           value: CartProvider(),
@@ -42,6 +44,7 @@ class MyApp extends StatelessWidget {
         home: ProductsOverviewPage(),
         routes: {
           ProductDetailPage.routeName: (ctx) => ProductDetailPage(),
+          CartPage.routeName: (ctx) => CartPage(),
         },
       ),
     );

@@ -14,7 +14,7 @@ class ProductDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productId = ModalRoute.of(context)?.settings.arguments as String;
+    final productId = ModalRoute.of(context)!.settings.arguments as String;
 
     // access to products data
     final loadedProduct = Provider.of<ProductsProvider>(
@@ -25,6 +25,7 @@ class ProductDetailPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: Text(loadedProduct.title)),
+      body: Text(loadedProduct.title),
     );
   }
 }

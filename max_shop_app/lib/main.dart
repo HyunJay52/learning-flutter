@@ -16,14 +16,18 @@ class MyApp extends StatelessWidget {
     //            and the widgets which are listening will rebuild
     //            not the whole materialapp,
     return MultiProvider(
+      // ChangeNotifierProvider.value() only for one -> more than on providers
       providers: [
-        ChangeNotifierProvider.value(
-          value: ProductsProvider(),
-          // create: (ctx) => ProductsProvider(),
+        ChangeNotifierProvider(
+          create: (ctx) => ProductsProvider(),
         ),
         ChangeNotifierProvider.value(
           value: CartProvider(),
         ),
+        // ChangeNotifierProvider.value(
+        //   value: ProductsProvider(),
+        //   create: (ctx) => ProductsProvider(),
+        // ),
       ], // build > create
       child: MaterialApp(
         title: 'MyShop',

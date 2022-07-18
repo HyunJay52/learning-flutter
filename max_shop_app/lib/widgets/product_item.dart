@@ -1,21 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import '../pages/product_detail_page.dart';
+import '../providers/product.dart';
+
+import '../providers/cart_provider.dart';
 
 class ProductItem extends StatelessWidget {
-  final String id;
-  final String title;
-  final String imageUrl;
+  // final String id;
+  // final String title;
+  // final String imageUrl;
 
-  const ProductItem({
-    Key? key,
-    required this.id,
-    required this.title,
-    required this.imageUrl,
-  }) : super(key: key);
+  // const ProductItem({
+  //   Key? key,
+  //   required this.id,
+  //   required this.title,
+  //   required this.imageUrl,
+  // }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('imageUrl: $imageUrl');
+    // final product = Provider.of<Product>(context); ---> Consumer로 대체
+    // listen: false - 데이터가 업데이트되도 화면에 반영되지 않음
+
+    // provider.of - whenever data updates > rerun the whole build
+    // Consumer - only subpart wanted to be updated
+    final product = Provider.of<ProductModel>(context, listen: false);
+    final cart = Provider.of<CartProvider>(context, listen: false);
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
@@ -23,20 +34,28 @@ class ProductItem extends StatelessWidget {
         // header: Text('test'),
         footer: GridTileBar(
           backgroundColor: Colors.black87,
-          leading: IconButton(
-            icon: const Icon(Icons.favorite),
-            onPressed: () {},
-            color: Theme.of(context).colorScheme.secondary,
+          leading: Consumer<ProductModel>(
+            builder: (ctx, product, _) => IconButton(
+              icon: Icon(
+                product.isFavorite ? Icons.favorite : Icons.favorite_border,
+              ),
+              onPressed: () {
+                product.toggleFavoriteStatus();
+              },
+              color: Theme.of(context).colorScheme.secondary,
+            ),
           ),
           title: Text(
-            title,
+            product.title,
             textAlign: TextAlign.center,
           ),
           trailing: IconButton(
             icon: const Icon(
               Icons.shopping_cart,
             ),
-            onPressed: () {},
+            onPressed: () {
+              cart.addCart(product.id, product.price, product.title);
+            },
             color: Theme.of(context).colorScheme.secondary,
           ),
         ),
@@ -44,11 +63,11 @@ class ProductItem extends StatelessWidget {
           onTap: () {
             Navigator.of(context).pushNamed(
               ProductDetailPage.routeName,
-              arguments: id,
+              arguments: product.id,
             );
           },
           child: Image.network(
-            imageUrl,
+            product.imageUrl,
             fit: BoxFit.cover,
           ),
         ),

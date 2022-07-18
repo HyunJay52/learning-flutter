@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../models/product.dart';
+import 'product.dart';
 
 class ProductsProvider with ChangeNotifier {
-  final List<Product> _items = [
-    Product(
+  final List<ProductModel> _items = [
+    ProductModel(
       id: 'p1',
       title: 'Red Shirt',
       description: 'A red shirt - it is pretty red!',
@@ -11,7 +11,7 @@ class ProductsProvider with ChangeNotifier {
       imageUrl:
           'https://cdn.pixabay.com/photo/2016/10/02/22/17/red-t-shirt-1710578_1280.jpg',
     ),
-    Product(
+    ProductModel(
       id: 'p2',
       title: 'Trousers',
       description: 'A nice pair of trousers.',
@@ -19,7 +19,7 @@ class ProductsProvider with ChangeNotifier {
       imageUrl:
           'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Trousers%2C_dress_%28AM_1960.022-8%29.jpg/512px-Trousers%2C_dress_%28AM_1960.022-8%29.jpg',
     ),
-    Product(
+    ProductModel(
       id: 'p3',
       title: 'Yellow Scarf',
       description: 'Warm and cozy - exactly what you need for the winter.',
@@ -27,7 +27,7 @@ class ProductsProvider with ChangeNotifier {
       imageUrl:
           'https://live.staticflickr.com/4043/4438260868_cc79b3369d_z.jpg',
     ),
-    Product(
+    ProductModel(
       id: 'p4',
       title: 'A Pan',
       description: 'Prepare any meal you want.',
@@ -37,15 +37,35 @@ class ProductsProvider with ChangeNotifier {
     ),
   ]; // able to add items by using notifyListener
 
-  //fetch items
-  List<Product> get items {
+  // var _showFavoriteOnly = false;
+
+  //fetch items .... getter!
+  List<ProductModel> get items {
+    // if (_showFavoriteOnly) {
+    //   return _items.where((prodItem) => prodItem.isFavorite).toList();
+    // }
     return [..._items];
   }
 
+  List<ProductModel> get favoriteItems {
+    return _items.where((prodItem) => prodItem.isFavorite).toList();
+  }
+
   // divide logic from widgets
-  Product findById(String id) {
+  ProductModel findById(String id) {
     return _items.firstWhere((prod) => prod.id == id);
   }
+
+  // list up in fav state
+  // void showFavoritesOnly() {
+  //   _showFavoriteOnly = true;
+  //   notifyListeners();
+  // }
+
+  // void showAll() {
+  //   _showFavoriteOnly = false;
+  //   notifyListeners();
+  // }
 
   void addProduct() {
     // _items.add(value);

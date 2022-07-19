@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:max_shop_app/pages/user_products_page.dart';
 
 import '../pages/orders_page.dart';
+import '../pages/user_products_page.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key}) : super(key: key);
@@ -11,7 +13,7 @@ class AppDrawer extends StatelessWidget {
       child: Column(
         children: [
           AppBar(
-            title: const Text('hello ~'),
+            title: const Text('shop app drawer'),
             automaticallyImplyLeading: false,
           ),
           const Divider(),
@@ -28,6 +30,15 @@ class AppDrawer extends StatelessWidget {
             title: const Text('orders'),
             onTap: () {
               Navigator.of(context).pushReplacementNamed(OrdersPage.routeName);
+            },
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.edit),
+            title: const Text('manage products'),
+            onTap: () {
+              Navigator.of(context)
+                  .pushReplacementNamed(UserProductsPage.routeName);
             },
           )
         ],

@@ -28,7 +28,7 @@ class ProductItem extends StatelessWidget {
     // Consumer - only subpart wanted to be updated
     final product = Provider.of<ProductModel>(context, listen: false);
     final cart = Provider.of<CartProvider>(context, listen: false);
-    final cart2 = context.read<CartProvider>();
+    // final cart2 = context.read<CartProvider>();
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),

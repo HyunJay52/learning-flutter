@@ -67,10 +67,34 @@ class ProductsProvider with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  void addProduct() {
-    // _items.add(value);
+  void addProduct(ProductModel product) {
+    final newProduct = ProductModel(
+      id: DateTime.now().toString(),
+      title: product.title,
+      description: product.description,
+      price: product.price,
+      imageUrl: product.imageUrl,
+    );
+    //_items.add(newProduct);
+    _items.insert(0, newProduct); // at the start of the list
     notifyListeners();
     // other classes will listen the changes in this class
     // and re-build the widgets
+  }
+
+  void updateProduct(String id, ProductModel product) {
+    final prodIdx = _items.indexWhere((prod) => prod.id == id);
+
+    if (prodIdx >= 0) {
+      _items[prodIdx] = product;
+      notifyListeners();
+    } else {
+      debugPrint('failed to update');
+    }
+  }
+
+  void deleteProduct(String id) {
+    _items.removeWhere((prod) => prod.id == id);
+    notifyListeners();
   }
 }

@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:max_shop_app/models/http_exception.dart';
 import 'product.dart';
 import 'package:http/http.dart' as http;
 
@@ -165,7 +167,7 @@ class ProductsProvider with ChangeNotifier {
     }
   }
 
-  void deleteProduct(String id) {
+  Future<void> deleteProduct(String id) async {
     // status code
     // 200 201
     // 300
@@ -178,16 +180,17 @@ class ProductsProvider with ChangeNotifier {
     final existingProductIndex = _items.indexWhere((prod) => prod.id == id);
     ProductModel? exisitingProduct = _items[existingProductIndex];
 
-    http.delete(url).then((_) {
-      exisitingProduct = null;
-    }).catchError((_) {
-      _items.insert(existingProductIndex, exisitingProduct!);
-      notifyListeners();
-    });
+    final response = await http.delete(url);
 
     _items.removeAt(existingProductIndex);
     //_items.removeWhere((prod) => prod.id == id);
 
     notifyListeners();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      _items.insert(existingProductIndex, exisitingProduct);
+      notifyListeners();
+      throw HttpException('Could not delete the product...');
+    }
+    exisitingProduct = null;
   }
 }

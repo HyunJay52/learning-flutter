@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:max_shop_app/models/http_exception.dart';
+import 'package:max_shop_app/widgets/order_item.dart';
 import 'product.dart';
 import 'package:http/http.dart' as http;
 

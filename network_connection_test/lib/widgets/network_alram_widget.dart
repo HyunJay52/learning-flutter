@@ -18,7 +18,7 @@ class _NetworkAlramState extends State<NetworkAlram> {
 
   late StreamSubscription _subscription; // 네트워크 변화 확인
 
-  Future<void> CheckConnectivity() async {
+  Future<void> checkConnectiviyPlus() async {
     var result = await Connectivity().checkConnectivity();
 
     if (result == ConnectivityResult.mobile) {
@@ -39,7 +39,7 @@ class _NetworkAlramState extends State<NetworkAlram> {
 
   @override
   void initState() {
-    CheckConnectivity(); // 1회성 검사
+    checkConnectiviyPlus(); // 1회성 검사
 
     _subscription = Connectivity().onConnectivityChanged.listen((result) {
       ScaffoldMessenger.of(context).showSnackBar(

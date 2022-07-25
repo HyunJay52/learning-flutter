@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Connectivity plus Test...'),
         ),
-        body: NetworkAlram(),
+        body: const NetworkAlram(),
       ),
     );
   }
